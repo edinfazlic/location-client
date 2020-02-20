@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Enter a new location</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Location name" [(ngModel)]="location.locationName">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Latitude" [(ngModel)]="location.lat">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Longitude" [(ngModel)]="location.lng">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="location" cdkFocusInitial>Confirm</button>
+</div>

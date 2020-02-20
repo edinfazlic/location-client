@@ -1,0 +1,10 @@
+<div class="filter-form">
+  <mat-form-field class="filter-form-field">
+    <input matInput placeholder="Address" [(ngModel)]="filter.addressId">
+    <mat-hint>Use location ID for search</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="filter-form-field">
+    <input matInput placeholder="Radius (Mile)" [(ngModel)]="filter.radius">
+  </mat-form-field>
+  <button mat-button color="primary" (click)="searchClicked()">Search</button>
+</div>

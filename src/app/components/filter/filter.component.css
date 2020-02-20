@@ -1,0 +1,9 @@
+.filter-form {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+
+.filter-form-field {
+  margin: 0 5px;
+}
