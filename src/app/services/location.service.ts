@@ -9,31 +9,32 @@ import { LocationModel as Location } from '../models/location.model';
 export class LocationService {
 
   private readonly apiUrl = ApiConfig.API_URL;
+  private readonly locationUrl = `${this.apiUrl}/location`;
 
   constructor(private http: HttpClient) {
   }
 
   public create(location: Location): Observable<Location> {
-    return this.http.post<Location>(`${this.apiUrl}/location`, location);
+    return this.http.post<Location>(this.locationUrl, location);
   }
 
   public update(location: Location): void {
-    this.http.put<Location>(`${this.apiUrl}/location`, location);
+    this.http.put<Location>(this.locationUrl, location);
   }
 
   public delete(locationId: number): void {
-    this.http.delete<Location>(`${this.apiUrl}/location/${locationId}`);
+    this.http.delete<Location>(`${this.locationUrl}/${locationId}`);
   }
 
   public getAll(): Observable<Location[]> {
-    return this.http.get<Location[]>(`${this.apiUrl}/location`);
+    return this.http.get<Location[]>(this.locationUrl);
   }
 
   public get(id: string): Observable<Location> {
-    return this.http.get<Location>(`${this.apiUrl}/location/${id}`);
+    return this.http.get<Location>(`${this.locationUrl}/${id}`);
   }
 
   public getFiltered(filter: Filter): Observable<Location[]> {
-    return this.http.get<Location[]>(`${this.apiUrl}/location/filtered?addressId=${filter.addressId}&radius=${filter.radius}`);
+    return this.http.get<Location[]>(`${this.locationUrl}/filtered?addressId=${filter.addressId}&radius=${filter.radius}`);
   }
 }
