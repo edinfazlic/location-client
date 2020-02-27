@@ -19,3 +19,7 @@
 .popup-header {
   height: 40px;
 }
+
+.close-popup-button {
+  float: right;
+}

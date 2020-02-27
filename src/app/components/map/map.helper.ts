@@ -1,11 +1,9 @@
 import { Feature, Overlay } from 'ol';
-import { defaults as defaultControls } from 'ol/control';
-import ZoomToExtent from 'ol/control/ZoomToExtent';
 import { Point } from 'ol/geom';
 import { Vector } from 'ol/layer';
 import TileLayer from 'ol/layer/Tile';
+import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
-import { fromLonLat } from 'ol/proj';
 import { OSM, Vector as sourceVector } from 'ol/source';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
 import View from 'ol/View';
@@ -56,11 +54,13 @@ export default class MapHelper {
     });
   }
 
-  public static createClickPoint(): Vector {
+  public static createClickPoint(clickPoint: Point): VectorLayer {
     return new Vector({
       source: new sourceVector({
         features: [
-          new Feature(),
+          new Feature({
+            geometry: clickPoint,
+          }),
         ],
       }),
       style: MapHelper.pointStyle('gold'),

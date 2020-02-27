@@ -1,13 +1,14 @@
 <div fxFlex fxLayout="row" fxLayoutGap="10px" class="screen-max-height">
   <div fxFlex="50" fxLayout="column" fxLayoutGap="10px">
     <app-filter></app-filter>
-    <app-location-list [locations]="locations$ | async" (newLocation)="openAddNewLocationDialog()"></app-location-list>
+    <app-location-list (newLocation)="openAddNewLocationDialog()"></app-location-list>
   </div>
   <div fxFlex="50">
-    <app-map [locations]="locations$ | async"></app-map>
+    <app-map></app-map>
   </div>
 </div>
 
+<!--TODO: loading spinner-->
 <!--<div class="loading-shade" *ngIf="isLoading$ | async">-->
 <!--  <mat-spinner></mat-spinner>-->
 <!--</div>-->

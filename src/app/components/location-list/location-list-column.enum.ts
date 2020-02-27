@@ -1,7 +1,7 @@
 export enum LocationListColumn {
   ID = 'id',
-  LOCATION_NAME = 'location_name',
-  LATITUDE = 'latitude',
-  LONGITUDE = 'longitude',
+  LOCATION_NAME = 'locationName',
+  LONGITUDE = 'lng',
+  LATITUDE = 'lat',
   NEW = 'new',
 }

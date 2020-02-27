@@ -1,7 +1,6 @@
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AddLocation, FetchLocations, ToggleLoading, UpdateFilter, UpdateFilterCoordinates } from '../actions/location.action';
+import { AddLocation, FetchLocations, ToggleLoading, UpdateFilter } from '../actions/location.action';
 import Filter from '../models/filter.model';
 import { LocationModel as Location } from '../models/location.model';
 import { LocationService } from '../services/location.service';
@@ -87,18 +86,6 @@ export class LocationState {
   updateFilter(context: StateContext<LocationStateModel>, action: UpdateFilter): void {
     const state = context.getState();
     const filter = {...state.filter, ...action.payload};
-    context.patchState({
-      filter,
-    });
-  }
-
-  @Action(UpdateFilterCoordinates)
-  updateFilterCoordinates(context: StateContext<LocationStateModel>, action: UpdateFilterCoordinates): void {
-    const state = context.getState();
-    const filter = {...state.filter};
-    filter.isFilterByAddressId = false;
-    filter.lat = action.payload.lat;
-    filter.lon = action.payload.lon;
     context.patchState({
       filter,
     });

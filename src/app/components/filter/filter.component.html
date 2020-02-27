@@ -1,6 +1,6 @@
 <div class="filter-form mat-elevation-z8" fxFlex fxLayout="row" fxLayoutGap="10px">
   <div fxFlex="0 1 0">
-    <mat-radio-group aria-label="Select an option" (change)="onInputFieldBlur('isFilterByAddressId', ($event.value === '0'))">
+    <mat-radio-group aria-label="Select an option" (change)="onChangeInputField('isFilterByAddressId', ($event.value === '0'))">
       <mat-radio-button class="top-radio-button" value="0"
                         checked="{{(filter$ | async).isFilterByAddressId === true}}">By address id</mat-radio-button>
       <mat-radio-button class="bottom-radio-button" value="1"
@@ -14,7 +14,7 @@
         <input matInput
                placeholder="Address"
                [ngModel]="(filter$ | async).addressId"
-               (ngModelChange)="onInputFieldBlur('addressId', $event)">
+               (ngModelChange)="onChangeInputField('addressId', $event)">
         <mat-hint>Use location ID for search</mat-hint>
       </mat-form-field>
     </div>
@@ -23,14 +23,14 @@
         <input matInput
                placeholder="Longitude"
                [ngModel]="(filter$ | async).lon"
-               (ngModelChange)="onInputFieldBlur('lon', $event)">
+               (ngModelChange)="onChangeInputField('lon', $event)">
         <mat-hint>EPSG:4326</mat-hint>
       </mat-form-field>
       <mat-form-field class="filter-form-field">
         <input matInput
                placeholder="Latitude"
                [ngModel]="(filter$ | async).lat"
-               (ngModelChange)="onInputFieldBlur('lat', $event)">
+               (ngModelChange)="onChangeInputField('lat', $event)">
         <mat-hint>EPSG:4326</mat-hint>
       </mat-form-field>
     </div>
@@ -38,10 +38,11 @@
       <mat-form-field class="filter-form-field">
         <input matInput
                [ngModel]="(filter$ | async).radius"
-               (ngModelChange)="onInputFieldBlur('radius', $event)">
+               (ngModelChange)="onChangeInputField('radius', $event)">
         <mat-hint>Radius (Mile)</mat-hint>
       </mat-form-field>
       <button mat-flat-button color="primary" class="search-button" (click)="searchClicked()">Search</button>
+<!--      TODO: CLEAR, NEW buttons-->
     </div>
   </div>
 </div>

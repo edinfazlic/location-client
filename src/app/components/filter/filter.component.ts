@@ -24,7 +24,7 @@ export class FilterComponent {
     this.store.dispatch(new FetchLocations());
   }
 
-  onInputFieldBlur(attribute: string, value: string | boolean): void {
+  onChangeInputField(attribute: string, value: string | boolean): void {
     this.store.dispatch(new UpdateFilter({
       [attribute]: value,
     }));

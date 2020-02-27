@@ -25,11 +25,3 @@ export class UpdateFilter {
   constructor(public payload: Partial<Filter>) {
   }
 }
-
-export class UpdateFilterCoordinates {
-  static readonly type = '[Location] UpdateFilterCoordinates';
-
-  constructor(public payload: Filter) {
-  }
-}
-

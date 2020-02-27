@@ -25,6 +25,7 @@ import { MapComponent } from './components/map/map.component';
 import { NewLocationComponent } from './components/new-location/new-location.component';
 import { LocationService } from './services/location.service';
 import { LocationState } from './state/location.state';
+import { MapState } from './state/map.state';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,10 @@ import { LocationState } from './state/location.state';
     MatRadioModule,
     MatIconModule,
     FlexLayoutModule,
-    NgxsModule.forRoot([LocationState], {
+    NgxsModule.forRoot([
+      LocationState,
+      MapState,
+    ], {
       developmentMode: !environment.production,
     }),
   ],
