@@ -1,40 +1,29 @@
 <div class="list-container mat-elevation-z8">
-  <app-filter [filter]="filter" (filterChanged)="onFilterChange()"></app-filter>
-
-  <div class="example-loading-shade" *ngIf="isLoading">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-  </div>
-
-  <div class="example-table-container">
-    <table mat-table [dataSource]="locations" class="example-table">
-      <!-- Id Column -->
-      <ng-container matColumnDef="id">
+  <div class="table-container">
+    <table mat-table [dataSource]="locations">
+      <ng-container matColumnDef="{{column.ID}}">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let row">{{row.id}}</td>
       </ng-container>
 
-      <!-- Location Name Column -->
-      <ng-container matColumnDef="location_name">
+      <ng-container matColumnDef="{{column.LOCATION_NAME}}">
         <th mat-header-cell *matHeaderCellDef>Location name</th>
         <td mat-cell *matCellDef="let row">{{row.locationName}}</td>
       </ng-container>
 
-      <!-- Latitude Column -->
-      <ng-container matColumnDef="latitude">
+      <ng-container matColumnDef="{{column.LATITUDE}}">
         <th mat-header-cell *matHeaderCellDef>Latitude</th>
         <td mat-cell *matCellDef="let row">{{row.lat}}</td>
       </ng-container>
 
-      <!-- Longitude Column -->
-      <ng-container matColumnDef="longitude">
+      <ng-container matColumnDef="{{column.LONGITUDE}}">
         <th mat-header-cell *matHeaderCellDef>Longitude</th>
         <td mat-cell *matCellDef="let row">{{row.lng}}</td>
       </ng-container>
 
-      <!-- New Column -->
-      <ng-container matColumnDef="new">
+      <ng-container matColumnDef="{{column.NEW}}">
         <th mat-header-cell *matHeaderCellDef>
-          <button mat-button color="primary" (click)="addNew()">New</button>
+          <button mat-flat-button color="primary" (click)="addNew()">New</button>
         </th>
         <td mat-cell *matCellDef="let row"></td>
       </ng-container>

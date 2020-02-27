@@ -1,0 +1,23 @@
+<div id="{{mapElementId}}" class="mat-elevation-z8 map"></div>
+
+<div id="{{newLocationPopupElementId}}" class="new-location-popup">
+  <div class="popup-header">
+    <button mat-icon-button class="" (click)="closePopup()" style="float: right">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div>
+    <div>({{clickedCoordinate[0] | number:'1.0-3'}}, {{clickedCoordinate[1] | number:'1.0-3'}})</div>
+    <button mat-flat-button color="primary" (click)="addCoordinatesToFilter()">Use in filter</button>
+  </div>
+
+  <div *ngIf="!isClickAtExistingPoint">
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="Location name" [(ngModel)]="popupLocationName">
+        <mat-hint>Create location with this name</mat-hint>
+      </mat-form-field>
+    </div>
+    <button mat-flat-button color="primary" (click)="onConfirmPopup()">Create new</button>
+  </div>
+</div>

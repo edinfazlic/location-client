@@ -1,72 +1,28 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Observable } from 'rxjs';
-import Filter from 'src/app/models/filter.model';
 import { LocationModel as Location } from 'src/app/models/location.model';
-import { LocationService } from 'src/app/services/location.service';
-import { NewLocationComponent } from '../new-location/new-location.component';
+import { LocationListColumn } from './location-list-column.enum';
 
 @Component({
   selector: 'app-location-list',
   templateUrl: './location-list.component.html',
   styleUrls: ['./location-list.component.css'],
 })
-export class LocationListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'location_name', 'latitude', 'longitude', 'new'];
-  locations: Location[] = [];
-  filter: Filter = new Filter();
+export class LocationListComponent {
 
-  isLoading = true;
+  @Input()
+  locations: Location[] = [];
+
+  @Output()
+  newLocation: EventEmitter<void> = new EventEmitter();
+
+  column = LocationListColumn;
+  displayedColumns: string[] = [this.column.ID, this.column.LOCATION_NAME, this.column.LATITUDE, this.column.LONGITUDE, this.column.NEW];
+
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-  constructor(
-    private locationsService: LocationService,
-    private dialog: MatDialog,
-  ) {
+  addNew(): void {
+    this.newLocation.emit();
   }
 
-  ngAfterViewInit(): void {
-    this.refreshList();
-  }
-
-  public addNew(): void {
-    const dialogRef = this.dialog.open(
-      NewLocationComponent,
-      {
-        width: '250px',
-      });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (!result) { // Cancel
-        return;
-      }
-      // Add to database
-      this.locationsService.create(result)
-        .subscribe(this.refreshList);
-    });
-  }
-
-  public onFilterChange(): void {
-    this.refreshList();
-  }
-
-  private refreshList: () => void = () => {
-    this.isLoading = true;
-
-    this.getLocationsObservable()
-      .subscribe(this.setLocations);
-  }
-
-  private getLocationsObservable(): Observable<Location[]> {
-    if (this.filter.addressId) {
-      return this.locationsService.getFiltered(this.filter);
-    }
-    return this.locationsService.getAll();
-  }
-
-  private setLocations: (locations: Location[]) => void = (locations: Location[]) => {
-    this.locations = locations;
-    this.isLoading = false;
-  }
 }

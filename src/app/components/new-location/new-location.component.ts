@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { LocationModel as Location } from 'src/app/models/location.model';
 
@@ -6,6 +6,7 @@ import { LocationModel as Location } from 'src/app/models/location.model';
   selector: 'app-new-location',
   templateUrl: './new-location.component.html',
   styleUrls: ['./new-location.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewLocationComponent {
 

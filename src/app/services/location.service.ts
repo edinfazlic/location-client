@@ -8,8 +8,7 @@ import { LocationModel as Location } from '../models/location.model';
 @Injectable()
 export class LocationService {
 
-  private readonly apiUrl = ApiConfig.API_URL;
-  private readonly locationUrl = `${this.apiUrl}/location`;
+  private readonly locationUrl = `${ApiConfig.API_URL}/location`;
 
   constructor(private http: HttpClient) {
   }
@@ -35,6 +34,8 @@ export class LocationService {
   }
 
   public getFiltered(filter: Filter): Observable<Location[]> {
-    return this.http.get<Location[]>(`${this.locationUrl}/filtered?addressId=${filter.addressId}&radius=${filter.radius}`);
+    return this.http.get<Location[]>(`${this.locationUrl}/filtered`, {
+      params: filter as any,
+    });
   }
 }
