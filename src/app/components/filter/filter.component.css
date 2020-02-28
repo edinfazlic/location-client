@@ -1,9 +1,9 @@
 .filter-form {
-  padding: 10px;
+  padding: 5px 10px;
 }
 
-.filter-form-field {
-  margin: 0 5px;
+.shared-items-container .filter-form-field {
+  width: 70px;
 }
 
 .top-radio-button {
@@ -18,7 +18,6 @@
   margin-top: 15px;
 }
 
-.search-button {
-  width: 180px;
+.activity-button {
   margin: 0 5px;
 }

@@ -37,13 +37,17 @@
     <div class="shared-items-container">
       <mat-form-field class="filter-form-field">
         <input matInput
+               placeholder="Radius"
                [ngModel]="(filter$ | async).radius"
                (ngModelChange)="onChangeInputField('radius', $event)">
-        <mat-hint>Radius (Mile)</mat-hint>
+        <mat-hint>Miles</mat-hint>
       </mat-form-field>
-      <button mat-flat-button color="primary" class="search-button" (click)="searchClicked()">Search</button>
-      <button mat-flat-button color="primary" class="search-button" (click)="clearClicked()">Clear</button>
-      <button mat-flat-button color="primary" class="search-button" disabled (click)="newLocationClicked()">New Location</button>
+      <button mat-flat-button color="primary" class="activity-button" (click)="searchClicked()">
+        <mat-icon>search</mat-icon>Search</button>
+      <button mat-flat-button color="primary" class="activity-button" (click)="clearClicked()">
+        <mat-icon>crop_5_4</mat-icon>Clear</button>
+      <button mat-flat-button color="primary" class="activity-button" disabled (click)="newLocationClicked()">
+        <mat-icon>rate_review</mat-icon>New Location</button>
     </div>
   </div>
 </div>

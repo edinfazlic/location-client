@@ -2,3 +2,24 @@
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~material-design-icons/iconfont/material-icons.css';
+
+body {
+  font-size: 14px;
+}
+
+/* Defaulting angular material button */
+.mat-flat-button {
+  width: 120px;
+  padding-left: 5px !important;
+}
+
+/* Defaulting angular material form/input field */
+.mat-form-field {
+  margin: 0 5px;
+  width: 150px;
+}
+
+/* Defaulting angular material table cell */
+.mat-cell {
+  font-size: 12px;
+}
