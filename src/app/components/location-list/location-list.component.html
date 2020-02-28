@@ -1,6 +1,6 @@
 <div class="list-container mat-elevation-z8">
   <div class="table-container">
-    <table mat-table [dataSource]="locations$ | async" (mouseleave)="onHoverRow({})">
+    <table mat-table [dataSource]="locations$ | async" (mouseleave)="clearRowHover()">
       <ng-container matColumnDef="{{column.ID}}">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let row" (dblclick)="onIdDoubleClick(row[column.ID])">{{row[column.ID]}}</td>

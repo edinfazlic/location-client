@@ -49,4 +49,8 @@ export class LocationListComponent {
   onHoverRow(row: Location): void {
     this.store.dispatch(new HighlightLocation(row));
   }
+
+  clearRowHover(): void {
+    this.onHoverRow(new Location());
+  }
 }

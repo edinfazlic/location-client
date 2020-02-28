@@ -1,5 +1,4 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { FetchLocations } from '../../actions/location.action';
