@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import Filter from 'src/app/models/filter.model';
-import { ClearFilter, FetchLocations, UpdateFilter } from '../../actions/location.action';
+import { ClearFilter, FetchLocations, OpenNewLocationDialog, UpdateFilter } from '../../actions/location.action';
 import { LocationState } from '../../state/location.state';
 
 @Component({
@@ -28,7 +28,8 @@ export class FilterComponent {
     this.store.dispatch(new ClearFilter());
   }
 
-  newLocationClicked(): void { // todo: implement new location
+  newLocationClicked(): void {
+    this.store.dispatch(new OpenNewLocationDialog());
   }
 
   onChangeInputField(attribute: string, value: string | boolean): void {

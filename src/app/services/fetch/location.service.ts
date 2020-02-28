@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiConfig } from '../configs/api-config';
-import Filter from '../models/filter.model';
-import { LocationModel as Location } from '../models/location.model';
+import { ApiConfig } from '../../configs/api-config';
+import Filter from '../../models/filter.model';
+import { LocationModel as Location } from '../../models/location.model';
 
 @Injectable()
 export class LocationService {

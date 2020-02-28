@@ -8,13 +8,12 @@ import Map from 'ol/Map';
 import { Vector as sourceVector } from 'ol/source';
 import { Observable } from 'rxjs';
 import { LocationModel as Location } from 'src/app/models/location.model';
-import { AddLocation, UpdateFilter } from '../../actions/location.action';
 import { UpdateClickedCoordinate } from '../../actions/map.action';
 import { LocationState } from '../../state/location.state';
 import { MapState } from '../../state/map.state';
 import LocationCoordinate from '../../utils/location-coordinate.util';
-import AnimationHelper from './animation.helper';
-import MapHelper from './map.helper';
+import AnimationHelper from './helpers/animation.helper';
+import MapHelper from './helpers/map.helper';
 
 @Component({
   selector: 'app-map',
@@ -24,8 +23,7 @@ import MapHelper from './map.helper';
 })
 export class MapComponent implements AfterViewInit {
 
-  readonly newLocationPopupElementId: string = 'newLocationPopupId';
-  readonly mapElementId: string = 'mapId';
+  readonly elementId: string = 'mapId';
 
   @Select(LocationState.getLocations) locations$: Observable<Location[]>;
   @Select(MapState.getClickedCoordinate) clickedCoordinate$: Observable<Coordinate>;
@@ -34,14 +32,10 @@ export class MapComponent implements AfterViewInit {
 
   private map: Map;
   private view: View = MapHelper.createView();
-  private popup: Overlay = new Overlay({});
+  private popup: Overlay;
   private clickPoint: Point = new Point([]);
   private highlightPoint: Point = new Point([]);
   private locationsLayer: Vector;
-
-  popupLocationName: string;
-  isClickAtExistingPoint: boolean; // todo: clicking on the same point is not actually existing location
-  coordToLoc = LocationCoordinate.toLocation;
 
   constructor(
     private store: Store,
@@ -54,10 +48,11 @@ export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.view = MapHelper.createView();
-    this.map = MapHelper.createMap(this.mapElementId, this.view);
+    this.map = MapHelper.createMap(this.elementId, this.view);
 
-    this.popup = MapHelper.createPopup(this.newLocationPopupElementId);
-    this.map.addOverlay(this.popup);
+    if (this.popup) {
+      this.map.addOverlay(this.popup);
+    }
 
     this.locationsLayer = MapHelper.createLocationsLayer();
     this.map.addLayer(this.locationsLayer);
@@ -68,33 +63,12 @@ export class MapComponent implements AfterViewInit {
     this.map.on('singleclick', this.onMapClick);
   }
 
-  closePopup(): void {
-    this.popup.setPosition(undefined);
-  }
-
-  onCreateLocation(): void {
-    const coordinate = this.clickPoint.getCoordinates();
-    const location = LocationCoordinate.toLocation(coordinate);
-    location.locationName = this.popupLocationName;
-
-    this.store.dispatch(new AddLocation(location));
-
-    this.closePopup();
-    this.popupLocationName = '';
-  }
-
-  onAddToFilterClicked(): void {
-    this.addCoordinatesToFilter();
-    this.closePopup();
-  }
-
-  private addCoordinatesToFilter(): void {
-    const location = LocationCoordinate.toLocation(this.clickPoint.getCoordinates());
-    this.store.dispatch(new UpdateFilter({
-      lon: location.lng,
-      lat: location.lat,
-      isFilterByAddressId: false,
-    }));
+  onPopupCreated(popup: Overlay): void {
+    if (this.map) {
+      this.map.addOverlay(popup);
+    } else {
+      this.popup = popup;
+    }
   }
 
   private onLocationsChanged = (locations: Location[]): void => {
@@ -109,7 +83,6 @@ export class MapComponent implements AfterViewInit {
 
   private onClickedCoordinateChanged = (coordinate: Coordinate): void => {
     this.clickPoint.setCoordinates(coordinate);
-    this.popup.setPosition(coordinate);
   }
 
   private onCenterCoordinateChanged = (coordinate: Coordinate): void => {
@@ -122,7 +95,7 @@ export class MapComponent implements AfterViewInit {
 
   private onMapClick = (event: any): void => {
     this.store.dispatch(new UpdateClickedCoordinate(event.coordinate)).subscribe(() => {
-      this.isClickAtExistingPoint = this.map.hasFeatureAtPixel(event.pixel);
+      // this.isClickAtExistingPoint = this.map.hasFeatureAtPixel(event.pixel);
     });
   }
 

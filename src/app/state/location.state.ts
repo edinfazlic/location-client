@@ -6,12 +6,14 @@ import {
   DeleteLocation,
   FetchLocations,
   HighlightLocation,
+  OpenNewLocationDialog,
   ToggleLoading,
   UpdateFilter,
 } from '../actions/location.action';
 import Filter from '../models/filter.model';
 import { LocationModel as Location } from '../models/location.model';
-import { LocationService } from '../services/location.service';
+import { LocationService } from '../services/fetch/location.service';
+import { DialogService } from '../services/logic/dialog.service';
 
 
 export class LocationStateModel {
@@ -59,6 +61,7 @@ export class LocationState {
   constructor(
     private locationsService: LocationService,
     private store: Store,
+    private dialogService: DialogService,
   ) {
   }
 
@@ -110,6 +113,11 @@ export class LocationState {
     context.patchState({
       highlightLocation: action.payload,
     });
+  }
+
+  @Action(OpenNewLocationDialog)
+  openNewLocationDialog(context: StateContext<LocationStateModel>, action: OpenNewLocationDialog): void {
+    this.dialogService.openNewLocationDialog();
   }
 
   @Action(ToggleLoading)

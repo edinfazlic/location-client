@@ -1,27 +1,3 @@
-<div id="{{mapElementId}}" class="mat-elevation-z8 map"></div>
+<div id="{{elementId}}" class="mat-elevation-z8 map"></div>
 
-<!--TODO: extract popup to component-->
-<div id="{{newLocationPopupElementId}}" class="ol-popup">
-  <div class="popup-header">
-    <button mat-icon-button class="close-popup-button" (click)="closePopup()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-  <div>
-
-    <div>({{coordToLoc(clickedCoordinate$ | async).lng | number:'1.0-3'}}, {{coordToLoc(clickedCoordinate$ | async).lat | number:'1.0-3'}})</div>
-    <button mat-flat-button color="primary" (click)="onAddToFilterClicked()">
-      <mat-icon>find_in_page</mat-icon>Use in filter</button>
-  </div>
-
-  <div *ngIf="!isClickAtExistingPoint">
-    <div>
-      <mat-form-field class="new-location-input">
-        <input matInput placeholder="Location name" [(ngModel)]="popupLocationName">
-        <mat-hint>New location</mat-hint>
-      </mat-form-field>
-    </div>
-    <button mat-flat-button color="primary" (click)="onCreateLocation()">
-      <mat-icon>save</mat-icon>Create new</button>
-  </div>
-</div>
+<app-popup (created)="onPopupCreated($event)"></app-popup>

@@ -1,10 +1,13 @@
 <div class="filter-form mat-elevation-z8" fxFlex fxLayout="row" fxLayoutGap="10px">
   <div fxFlex="0 1 0">
-    <mat-radio-group aria-label="Select an option" (change)="onChangeInputField('isFilterByAddressId', ($event.value === '0'))">
+    <mat-radio-group aria-label="Select an option"
+                     (change)="onChangeInputField('isFilterByAddressId', ($event.value === '0'))">
       <mat-radio-button class="top-radio-button" value="0"
-                        checked="{{(filter$ | async).isFilterByAddressId === true}}">By address id</mat-radio-button>
+                        checked="{{(filter$ | async).isFilterByAddressId === true}}">By address id
+      </mat-radio-button>
       <mat-radio-button class="bottom-radio-button" value="1"
-                        checked="{{(filter$ | async).isFilterByAddressId === false}}">By coordinate</mat-radio-button>
+                        checked="{{(filter$ | async).isFilterByAddressId === false}}">By coordinate
+      </mat-radio-button>
     </mat-radio-group>
   </div>
 
@@ -43,11 +46,17 @@
         <mat-hint>Miles</mat-hint>
       </mat-form-field>
       <button mat-flat-button color="primary" class="activity-button" (click)="searchClicked()">
-        <mat-icon>search</mat-icon>Search</button>
+        <mat-icon>search</mat-icon>
+        Search
+      </button>
       <button mat-flat-button color="primary" class="activity-button" (click)="clearClicked()">
-        <mat-icon>crop_5_4</mat-icon>Clear</button>
-      <button mat-flat-button color="primary" class="activity-button" disabled (click)="newLocationClicked()">
-        <mat-icon>rate_review</mat-icon>New Location</button>
+        <mat-icon>crop_5_4</mat-icon>
+        Clear
+      </button>
+      <button mat-flat-button color="primary" class="activity-button" (click)="newLocationClicked()">
+        <mat-icon>rate_review</mat-icon>
+        New Location
+      </button>
     </div>
   </div>
 </div>

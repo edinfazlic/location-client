@@ -11,6 +11,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button [mat-dialog-close]="location" cdkFocusInitial>Confirm</button>
+  <button mat-flat-button color="primary" (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="location">Confirm</button>
 </div>

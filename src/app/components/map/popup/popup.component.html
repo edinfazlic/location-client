@@ -1,0 +1,28 @@
+<div id="{{elementId}}" class="popup">
+  <div class="header">
+    <button mat-icon-button class="close-button" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div>
+
+    <div>({{coordToLoc(clickedCoordinate$ | async).lng | number:'1.0-3'}}
+      , {{coordToLoc(clickedCoordinate$ | async).lat | number:'1.0-3'}})
+    </div>
+    <button mat-flat-button color="primary" (click)="onAddToFilterClicked()">
+      <mat-icon>find_in_page</mat-icon>
+      Use in filter
+    </button>
+  </div>
+
+  <div>
+    <mat-form-field class="new-location-input">
+      <input #locationNameInput matInput placeholder="Location name" [(ngModel)]="locationName">
+      <mat-hint>New location</mat-hint>
+    </mat-form-field>
+  </div>
+  <button mat-flat-button color="primary" (click)="onCreateLocation()">
+    <mat-icon>save</mat-icon>
+    Create new
+  </button>
+</div>

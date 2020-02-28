@@ -8,6 +8,9 @@ export default class AnimationHelper {
   private static ZOOM_EXTENT_PADDING = 40;
 
   public static zoomTo(view: View, layer: VectorLayer): void {
+    if (layer.getSource().isEmpty()) {
+      return;
+    }
     const extent = layer.getSource().getExtent();
     view.fit(extent, {
       duration: this.ANIMATION_DURATION,

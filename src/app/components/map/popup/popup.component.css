@@ -1,0 +1,44 @@
+.popup {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px #ccc solid;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  position: absolute;
+  left: -40px;
+  bottom: 12px;
+}
+
+.popup:after, .popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  position: absolute;
+}
+
+.popup:after {
+  border-top-color: rgba(255, 255, 255, 0.75);
+  border-width: 10px;
+  left: 40px;
+  margin-left: -10px;
+}
+
+.popup:before {
+  border-top-color: #ccc;
+  border-width: 11px;
+  left: 40px;
+  margin-left: -11px;
+}
+
+.header {
+  height: 40px;
+}
+
+.close-button {
+  float: right;
+}
+
+.new-location-input {
+  margin: 10px 0;
+}

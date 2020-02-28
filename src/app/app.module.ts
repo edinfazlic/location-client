@@ -23,8 +23,10 @@ import { FilterComponent } from './components/filter/filter.component';
 import { LocationContainerComponent } from './components/location-container/location-container.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { MapComponent } from './components/map/map.component';
+import { PopupComponent } from './components/map/popup/popup.component';
 import { NewLocationComponent } from './components/new-location/new-location.component';
-import { LocationService } from './services/location.service';
+import { LocationService } from './services/fetch/location.service';
+import { DialogService } from './services/logic/dialog.service';
 import { LocationState } from './state/location.state';
 import { MapState } from './state/map.state';
 
@@ -35,6 +37,7 @@ import { MapState } from './state/map.state';
     FilterComponent,
     NewLocationComponent,
     MapComponent,
+    PopupComponent,
     LocationContainerComponent,
   ],
   imports: [
@@ -63,7 +66,10 @@ import { MapState } from './state/map.state';
       },
     }),
   ],
-  providers: [LocationService],
+  providers: [
+    LocationService,
+    DialogService,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [NewLocationComponent],
 })

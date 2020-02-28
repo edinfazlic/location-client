@@ -27,6 +27,7 @@ export default class MapHelper {
       projection: 'EPSG:4326',
       center: [12.48292818260617, 41.894855491672004],
       zoom: 14,
+      maxZoom: 18,
     });
   }
 

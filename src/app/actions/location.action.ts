@@ -26,6 +26,10 @@ export class HighlightLocation {
   }
 }
 
+export class OpenNewLocationDialog {
+  static readonly type = '[Location] OpenNewLocationDialog';
+}
+
 export class ToggleLoading {
   static readonly type = '[Location] ToggleLoading';
 

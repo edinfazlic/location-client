@@ -38,6 +38,7 @@ export class LocationListComponent {
   }
 
   deleteLocation(addressId: string): void {
+    // todo: when deleting last row in the table, it stays "highlighted location", meaning there is coordinate on the map leftover
     this.store.dispatch(new DeleteLocation(addressId));
   }
 
