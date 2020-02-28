@@ -8,7 +8,8 @@
     </button>
   </div>
   <div>
-    <div>({{(clickedCoordinate$ | async)[0] | number:'1.0-3'}}, {{(clickedCoordinate$ | async)[1] | number:'1.0-3'}})</div>
+
+    <div>({{coordToLoc(clickedCoordinate$ | async).lng | number:'1.0-3'}}, {{coordToLoc(clickedCoordinate$ | async).lat | number:'1.0-3'}})</div>
     <button mat-flat-button color="primary" (click)="onAddToFilterClicked()">Use in filter</button>
   </div>
 

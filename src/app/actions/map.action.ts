@@ -6,3 +6,10 @@ export class UpdateClickedCoordinate {
   constructor(public payload: Coordinate) {
   }
 }
+
+export class UpdateCenterCoordinate {
+  static readonly type = '[Map] UpdateCenterCoordinate';
+
+  constructor(public payload: Coordinate) {
+  }
+}

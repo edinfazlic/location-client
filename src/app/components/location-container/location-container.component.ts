@@ -26,20 +26,4 @@ export class LocationContainerComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.store.dispatch(new FetchLocations());
   }
-
-  openAddNewLocationDialog(): void {
-    const dialogRef = this.dialog.open(
-      NewLocationComponent,
-      {
-        width: '250px',
-      });
-
-    dialogRef.afterClosed().subscribe((result: Location) => {
-      if (!result) { // Cancel
-        return;
-      }
-      this.store.dispatch(new AddLocation(result));
-    });
-  }
-
 }

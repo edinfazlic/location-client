@@ -28,3 +28,8 @@ table {
 .mat-header-cell {
     text-align: center;
 }
+
+
+.highlight-row {
+  background-color: #dde6ff;
+}

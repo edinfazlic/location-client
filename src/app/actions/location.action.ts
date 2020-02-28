@@ -8,8 +8,22 @@ export class AddLocation {
   }
 }
 
+export class DeleteLocation {
+  static readonly type = '[Location] DeleteLocation';
+
+  constructor(public payload: string) {
+  }
+}
+
 export class FetchLocations {
   static readonly type = '[Location] FetchLocations';
+}
+
+export class HighlightLocation {
+  static readonly type = '[Location] HighlightLocation';
+
+  constructor(public payload: Location) {
+  }
 }
 
 export class ToggleLoading {
@@ -24,4 +38,8 @@ export class UpdateFilter {
 
   constructor(public payload: Partial<Filter>) {
   }
+}
+
+export class ClearFilter {
+  static readonly type = '[Location] ClearFilter';
 }

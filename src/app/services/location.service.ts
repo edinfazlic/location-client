@@ -21,8 +21,8 @@ export class LocationService {
     this.http.put<Location>(this.locationUrl, location);
   }
 
-  public delete(locationId: number): void {
-    this.http.delete<Location>(`${this.locationUrl}/${locationId}`);
+  public delete(locationId: string): Observable<Location> {
+    return this.http.delete<Location>(`${this.locationUrl}/${locationId}`);
   }
 
   public getAll(): Observable<Location[]> {

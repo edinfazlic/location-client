@@ -12,6 +12,7 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatTableModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -50,12 +51,16 @@ import { MapState } from './state/map.state';
     MatInputModule,
     MatRadioModule,
     MatIconModule,
+    MatTooltipModule,
     FlexLayoutModule,
     NgxsModule.forRoot([
       LocationState,
       MapState,
     ], {
       developmentMode: !environment.production,
+      selectorOptions: {
+        injectContainerState: false,
+      },
     }),
   ],
   providers: [LocationService],

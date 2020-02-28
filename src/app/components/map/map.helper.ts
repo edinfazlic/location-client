@@ -10,7 +10,7 @@ import View from 'ol/View';
 
 export default class MapHelper {
 
-  public static createMap(elementId: string): Map {
+  public static createMap(elementId: string, view: View): Map {
     return new Map({
       target: elementId,
       layers: [
@@ -18,27 +18,15 @@ export default class MapHelper {
           source: new OSM(),
         }),
       ],
-      view: new View({
-        projection: 'EPSG:4326',
-        center: [12.48292818260617, 41.894855491672004],
-        // center: [4.35247, 50.84673],
-        zoom: 14,
-      }),
+      view,
     });
   }
 
-  public static pointStyle(fillColor: string = 'white'): Style {
-    return new Style({
-      image: new Circle({
-        radius: 7,
-        fill: new Fill({
-          color: fillColor,
-        }),
-        stroke: new Stroke({
-          color: 'dimgray',
-          width: 2,
-        }),
-      }),
+  public static createView(): View {
+    return new View({
+      projection: 'EPSG:4326',
+      center: [12.48292818260617, 41.894855491672004],
+      zoom: 14,
     });
   }
 
@@ -55,6 +43,14 @@ export default class MapHelper {
   }
 
   public static createClickPoint(clickPoint: Point): VectorLayer {
+    return this.createPointLayer(clickPoint, 'gold');
+  }
+
+  public static createHighlightPoint(clickPoint: Point): VectorLayer {
+    return this.createPointLayer(clickPoint, 'black');
+  }
+
+  private static createPointLayer(clickPoint: Point, fillColor: string): VectorLayer {
     return new Vector({
       source: new sourceVector({
         features: [
@@ -63,8 +59,29 @@ export default class MapHelper {
           }),
         ],
       }),
-      style: MapHelper.pointStyle('gold'),
+      style: MapHelper.pointStyle(fillColor),
     });
   }
 
+  public static createLocationsLayer(): VectorLayer {
+    return new Vector({
+      source: new sourceVector(),
+      style: MapHelper.pointStyle(),
+    });
+  }
+
+  private static pointStyle(fillColor: string = 'white'): Style {
+    return new Style({
+      image: new Circle({
+        radius: 7,
+        fill: new Fill({
+          color: fillColor,
+        }),
+        stroke: new Stroke({
+          color: '#ff5858',
+          width: 2,
+        }),
+      }),
+    });
+  }
 }

@@ -42,7 +42,8 @@
         <mat-hint>Radius (Mile)</mat-hint>
       </mat-form-field>
       <button mat-flat-button color="primary" class="search-button" (click)="searchClicked()">Search</button>
-<!--      TODO: CLEAR, NEW buttons-->
+      <button mat-flat-button color="primary" class="search-button" (click)="clearClicked()">Clear</button>
+      <button mat-flat-button color="primary" class="search-button" disabled (click)="newLocationClicked()">New Location</button>
     </div>
   </div>
 </div>

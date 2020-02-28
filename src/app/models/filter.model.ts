@@ -1,7 +1,7 @@
 export default class Filter {
-  public addressId = '';
-  public radius = 1;
-  public isFilterByAddressId = true;
+  public addressId: string;
+  public radius: number;
+  public isFilterByAddressId: boolean;
   public lon: number;
   public lat: number;
 }

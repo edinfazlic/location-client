@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { Feature, Overlay } from 'ol';
+import { Feature, Overlay, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { Point } from 'ol/geom';
 import { Vector } from 'ol/layer';
@@ -12,6 +12,8 @@ import { AddLocation, UpdateFilter } from '../../actions/location.action';
 import { UpdateClickedCoordinate } from '../../actions/map.action';
 import { LocationState } from '../../state/location.state';
 import { MapState } from '../../state/map.state';
+import LocationCoordinate from '../../utils/location-coordinate.util';
+import AnimationHelper from './animation.helper';
 import MapHelper from './map.helper';
 
 @Component({
@@ -27,12 +29,16 @@ export class MapComponent implements AfterViewInit {
 
   @Select(LocationState.getLocations) locations$: Observable<Location[]>;
   @Select(MapState.getClickedCoordinate) clickedCoordinate$: Observable<Coordinate>;
+  @Select(MapState.getCenterCoordinate) centerCoordinate$: Observable<Coordinate>;
+  @Select(MapState.getHighlightCoordinate) highlightCoordinate$: Observable<Coordinate>;
 
   private map: Map;
+  private view: View = MapHelper.createView();
   private popup: Overlay = new Overlay({});
-  private clickPointLayer: Vector;
   private clickPoint: Point = new Point([]);
+  private highlightPoint: Point = new Point([]);
   private locationsLayer: Vector;
+  private coordToLoc = LocationCoordinate.toLocation;
 
   popupLocationName: string;
   isClickAtExistingPoint: boolean; // todo: clicking on the same point is not actually existing location
@@ -40,27 +46,26 @@ export class MapComponent implements AfterViewInit {
   constructor(
     private store: Store,
   ) {
-    this.locations$.subscribe(this.onLocationObservable);
-    this.clickedCoordinate$.subscribe(this.onClickedCoordinateObservable);
+    this.locations$.subscribe(this.onLocationsChanged);
+    this.clickedCoordinate$.subscribe(this.onClickedCoordinateChanged);
+    this.centerCoordinate$.subscribe(this.onCenterCoordinateChanged);
+    this.highlightCoordinate$.subscribe(this.onHighlightCoordinateChanged);
   }
 
   ngAfterViewInit(): void {
-    this.map = MapHelper.createMap(this.mapElementId);
+    this.view = MapHelper.createView();
+    this.map = MapHelper.createMap(this.mapElementId, this.view);
 
     this.popup = MapHelper.createPopup(this.newLocationPopupElementId);
     this.map.addOverlay(this.popup);
 
-    this.clickPointLayer = MapHelper.createClickPoint(this.clickPoint);
-    this.map.addLayer(this.clickPointLayer);
+    this.locationsLayer = MapHelper.createLocationsLayer();
+    this.map.addLayer(this.locationsLayer);
+
+    this.map.addLayer(MapHelper.createClickPoint(this.clickPoint));
+    this.map.addLayer(MapHelper.createHighlightPoint(this.highlightPoint));
 
     this.map.on('singleclick', this.onMapClick);
-
-
-    this.locationsLayer = new Vector({
-      source: new sourceVector(),
-      style: MapHelper.pointStyle(),
-    });
-    this.map.addLayer(this.locationsLayer);
   }
 
   closePopup(): void {
@@ -68,11 +73,9 @@ export class MapComponent implements AfterViewInit {
   }
 
   onCreateLocation(): void {
-    const location = new Location();
-    location.locationName = this.popupLocationName;
     const coordinate = this.clickPoint.getCoordinates();
-    location.lng = coordinate[0];
-    location.lat = coordinate[1];
+    const location = LocationCoordinate.toLocation(coordinate);
+    location.locationName = this.popupLocationName;
 
     this.store.dispatch(new AddLocation(location));
 
@@ -86,24 +89,35 @@ export class MapComponent implements AfterViewInit {
   }
 
   private addCoordinatesToFilter(): void {
+    const location = LocationCoordinate.toLocation(this.clickPoint.getCoordinates());
     this.store.dispatch(new UpdateFilter({
-      lon: this.clickPoint.getCoordinates()[0],
-      lat: this.clickPoint.getCoordinates()[1],
+      lon: location.lng,
+      lat: location.lat,
       isFilterByAddressId: false,
     }));
   }
 
-  private onClickedCoordinateObservable = (coordinate: Coordinate): void => {
-    this.clickPoint.setCoordinates(coordinate);
-    this.popup.setPosition(coordinate);
-  }
-
-  private onLocationObservable = (locations: Location[]): void => {
-    if (!this.map) {
+  private onLocationsChanged = (locations: Location[]): void => {
+    if (!this.locationsLayer) {
       return;
     }
     const features = !locations ? undefined : locations.map(this.locationToFeature);
     this.locationsLayer.setSource(new sourceVector({features}));
+
+    AnimationHelper.zoomTo(this.view, this.locationsLayer);
+  }
+
+  private onClickedCoordinateChanged = (coordinate: Coordinate): void => {
+    this.clickPoint.setCoordinates(coordinate);
+    this.popup.setPosition(coordinate);
+  }
+
+  private onCenterCoordinateChanged = (coordinate: Coordinate): void => {
+    AnimationHelper.flyTo(this.view, coordinate);
+  }
+
+  private onHighlightCoordinateChanged = (coordinate: Coordinate): void => {
+    this.highlightPoint.setCoordinates(coordinate);
   }
 
   private onMapClick = (event: any): void => {
@@ -114,7 +128,7 @@ export class MapComponent implements AfterViewInit {
 
   private locationToFeature = (location: Location): Feature => {
     return new Feature({
-      geometry: new Point([location.lng, location.lat]),
+      geometry: new Point(LocationCoordinate.toCoordinate(location)),
     });
   }
 }

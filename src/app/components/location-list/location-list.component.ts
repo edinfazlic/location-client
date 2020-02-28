@@ -3,8 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { LocationModel as Location } from 'src/app/models/location.model';
-import { UpdateFilter } from '../../actions/location.action';
+import { DeleteLocation, HighlightLocation, UpdateFilter } from '../../actions/location.action';
+import { UpdateCenterCoordinate } from '../../actions/map.action';
 import { LocationState } from '../../state/location.state';
+import LocationCoordinate from '../../utils/location-coordinate.util';
 import { LocationListColumn } from './location-list-column.enum';
 
 @Component({
@@ -15,10 +17,8 @@ import { LocationListColumn } from './location-list-column.enum';
 })
 export class LocationListComponent {
 
-  @Output()
-  newLocation: EventEmitter<void> = new EventEmitter();
-
   @Select(LocationState.getLocations) locations$: Observable<Location[]>;
+  @Select(LocationState.getHighlightLocation) highlightedLocation$: Observable<Location>;
 
   column = LocationListColumn;
   displayedColumns: string[] = [this.column.ID, this.column.LOCATION_NAME, this.column.LATITUDE, this.column.LONGITUDE, this.column.NEW];
@@ -30,14 +30,23 @@ export class LocationListComponent {
   ) {
   }
 
-  addNew(): void {
-    this.newLocation.emit();
-  }
-
   onIdDoubleClick(id: string): void {
     this.store.dispatch(new UpdateFilter({
       addressId: id,
       isFilterByAddressId: true,
     }));
+  }
+
+  deleteLocation(addressId: string): void {
+    this.store.dispatch(new DeleteLocation(addressId));
+  }
+
+  goToLocation(location: Location): void {
+    const coordinate = LocationCoordinate.toCoordinate(location)
+    this.store.dispatch(new UpdateCenterCoordinate(coordinate));
+  }
+
+  onHoverRow(row: Location): void {
+    this.store.dispatch(new HighlightLocation(row));
   }
 }
