@@ -38,10 +38,10 @@ export class MapComponent implements AfterViewInit {
   private clickPoint: Point = new Point([]);
   private highlightPoint: Point = new Point([]);
   private locationsLayer: Vector;
-  private coordToLoc = LocationCoordinate.toLocation;
 
   popupLocationName: string;
   isClickAtExistingPoint: boolean; // todo: clicking on the same point is not actually existing location
+  coordToLoc = LocationCoordinate.toLocation;
 
   constructor(
     private store: Store,

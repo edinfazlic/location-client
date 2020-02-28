@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -42,7 +42,7 @@ export class LocationListComponent {
   }
 
   goToLocation(location: Location): void {
-    const coordinate = LocationCoordinate.toCoordinate(location)
+    const coordinate = LocationCoordinate.toCoordinate(location);
     this.store.dispatch(new UpdateCenterCoordinate(coordinate));
   }
 

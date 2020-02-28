@@ -2,10 +2,8 @@ import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core
 import { MatDialog } from '@angular/material';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AddLocation, FetchLocations } from '../../actions/location.action';
-import { LocationModel as Location } from '../../models/location.model';
+import { FetchLocations } from '../../actions/location.action';
 import { LocationState } from '../../state/location.state';
-import { NewLocationComponent } from '../new-location/new-location.component';
 
 @Component({
   selector: 'app-location-container',
@@ -19,7 +17,6 @@ export class LocationContainerComponent implements AfterViewInit {
 
   constructor(
     private store: Store,
-    private dialog: MatDialog,
   ) {
   }
 
