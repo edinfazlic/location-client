@@ -2,24 +2,21 @@ import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import {
   AddLocation,
-  ClearFilter,
   DeleteLocation,
   FetchLocations,
   HighlightLocation,
   OpenNewLocationDialog,
   ToggleLoading,
-  UpdateFilter,
 } from '../actions/location.action';
-import Filter from '../models/filter.model';
 import { LocationModel as Location } from '../models/location.model';
 import { LocationService } from '../services/fetch/location.service';
 import { DialogService } from '../services/logic/dialog.service';
+import { FilterState } from './filter.state';
 
 
 export class LocationStateModel {
   loadingCounter: number;
   locations: Location[];
-  filter: Filter;
   highlightLocation: Location;
 }
 
@@ -28,10 +25,6 @@ export class LocationStateModel {
   defaults: {
     loadingCounter: 0,
     locations: [],
-    filter: {
-      isFilterByAddressId: true,
-      radius: 1,
-    } as Filter,
     highlightLocation: new Location(),
   },
 })
@@ -46,11 +39,6 @@ export class LocationState {
   @Selector()
   static isLoading(state: LocationStateModel): boolean {
     return state.loadingCounter > 0;
-  }
-
-  @Selector()
-  static getFilter(state: LocationStateModel): Filter {
-    return state.filter;
   }
 
   @Selector()
@@ -95,8 +83,8 @@ export class LocationState {
   fetch(context: StateContext<LocationStateModel>, action: FetchLocations): void {
     this.store.dispatch(new ToggleLoading(true));
 
-    const state = context.getState();
-    this.locationsService.getFiltered(state.filter).pipe(
+    const filter = this.store.selectSnapshot(FilterState.getFilter);
+    this.locationsService.getFiltered(filter).pipe(
       tap((result: Location[]) => {
         context.patchState({
           locations: result,
@@ -117,7 +105,7 @@ export class LocationState {
 
   @Action(OpenNewLocationDialog)
   openNewLocationDialog(context: StateContext<LocationStateModel>, action: OpenNewLocationDialog): void {
-    this.dialogService.openNewLocationDialog();
+      this.dialogService.openNewLocationDialog();
   }
 
   @Action(ToggleLoading)
@@ -125,22 +113,6 @@ export class LocationState {
     const state = context.getState();
     context.patchState({
       loadingCounter: action.payload === true ? state.loadingCounter + 1 : (state.loadingCounter > 1 ? state.loadingCounter - 1 : 0),
-    });
-  }
-
-  @Action(UpdateFilter)
-  updateFilter(context: StateContext<LocationStateModel>, action: UpdateFilter): void {
-    const state = context.getState();
-    const filter = {...state.filter, ...action.payload};
-    context.patchState({
-      filter,
-    });
-  }
-
-  @Action(ClearFilter)
-  clearFilter(context: StateContext<LocationStateModel>, action: ClearFilter): void {
-    context.patchState({
-      filter: new Filter(),
     });
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngxs/store';
 import { AddLocation } from '../../actions/location.action';
@@ -11,10 +11,15 @@ export class DialogService {
   constructor(
     private dialog: MatDialog,
     private store: Store,
+    private zone: NgZone,
   ) {
   }
 
   public openNewLocationDialog(): void {
+    this.zone.run(this.openDialog); // Keep the inside function calls all within the Angular zone
+  }
+
+  private openDialog = (): void => {
     const dialogRef = this.dialog.open(
       NewLocationComponent,
       {

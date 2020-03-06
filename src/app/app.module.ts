@@ -27,6 +27,7 @@ import { PopupComponent } from './components/map/popup/popup.component';
 import { NewLocationComponent } from './components/new-location/new-location.component';
 import { LocationService } from './services/fetch/location.service';
 import { DialogService } from './services/logic/dialog.service';
+import { FilterState } from './state/filter.state';
 import { LocationState } from './state/location.state';
 import { MapState } from './state/map.state';
 
@@ -57,6 +58,7 @@ import { MapState } from './state/map.state';
     MatTooltipModule,
     FlexLayoutModule,
     NgxsModule.forRoot([
+      FilterState,
       LocationState,
       MapState,
     ], {

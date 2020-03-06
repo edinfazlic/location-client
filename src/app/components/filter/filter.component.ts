@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import Filter from 'src/app/models/filter.model';
-import { ClearFilter, FetchLocations, OpenNewLocationDialog, UpdateFilter } from '../../actions/location.action';
-import { LocationState } from '../../state/location.state';
+import { ClearFilter, UpdateFilter } from '../../actions/filter.action';
+import { FetchLocations, OpenNewLocationDialog } from '../../actions/location.action';
+import { FilterState } from '../../state/filter.state';
 
 @Component({
   selector: 'app-filter',
@@ -13,7 +14,7 @@ import { LocationState } from '../../state/location.state';
 })
 export class FilterComponent {
 
-  @Select(LocationState.getFilter) filter$: Observable<Filter>;
+  @Select(FilterState.getFilter) filter$: Observable<Filter>;
 
   constructor(
     private store: Store,

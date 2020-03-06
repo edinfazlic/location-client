@@ -1,4 +1,3 @@
-import Filter from '../models/filter.model';
 import { LocationModel as Location } from '../models/location.model';
 
 export class AddLocation {
@@ -35,15 +34,4 @@ export class ToggleLoading {
 
   constructor(public payload: boolean) {
   }
-}
-
-export class UpdateFilter {
-  static readonly type = '[Location] UpdateFilter';
-
-  constructor(public payload: Partial<Filter>) {
-  }
-}
-
-export class ClearFilter {
-  static readonly type = '[Location] ClearFilter';
 }

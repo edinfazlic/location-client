@@ -3,7 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { LocationModel as Location } from 'src/app/models/location.model';
-import { DeleteLocation, HighlightLocation, UpdateFilter } from '../../actions/location.action';
+import { UpdateFilter } from '../../actions/filter.action';
+import { DeleteLocation, HighlightLocation } from '../../actions/location.action';
 import { UpdateCenterCoordinate } from '../../actions/map.action';
 import { LocationState } from '../../state/location.state';
 import LocationCoordinate from '../../utils/location-coordinate.util';
@@ -21,7 +22,7 @@ export class LocationListComponent {
   @Select(LocationState.getHighlightLocation) highlightedLocation$: Observable<Location>;
 
   column = LocationListColumn;
-  displayedColumns: string[] = [this.column.ID, this.column.LOCATION_NAME, this.column.LATITUDE, this.column.LONGITUDE, this.column.NEW];
+  displayedColumns: string[] = [this.column.ID, this.column.LOCATION_NAME, this.column.LONGITUDE, this.column.LATITUDE, this.column.NEW];
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { LocationModel as Location } from 'src/app/models/location.model';
 
 @Component({
@@ -11,13 +11,8 @@ import { LocationModel as Location } from 'src/app/models/location.model';
 export class NewLocationComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<NewLocationComponent>,
     @Inject(MAT_DIALOG_DATA) public location: Location,
   ) {
     this.location = new Location();
-  }
-
-  onCancel(): void {
-    this.dialogRef.close();
   }
 }
