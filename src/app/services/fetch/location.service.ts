@@ -17,8 +17,8 @@ export class LocationService {
     return this.http.post<Location>(this.locationUrl, location);
   }
 
-  public update(location: Location): void {
-    this.http.put<Location>(this.locationUrl, location);
+  public update(location: Location): Observable<Location> {
+    return this.http.put<Location>(this.locationUrl, location);
   }
 
   public delete(locationId: string): Observable<Location> {

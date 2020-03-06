@@ -7,6 +7,13 @@ export class AddLocation {
   }
 }
 
+export class UpdateLocation {
+  static readonly type = '[Location] UpdateLocation';
+
+  constructor(public payload: Location) {
+  }
+}
+
 export class DeleteLocation {
   static readonly type = '[Location] DeleteLocation';
 
@@ -27,6 +34,13 @@ export class HighlightLocation {
 
 export class OpenNewLocationDialog {
   static readonly type = '[Location] OpenNewLocationDialog';
+}
+
+export class OpenEditLocationDialog {
+  static readonly type = '[Location] OpenEditLocationDialog';
+
+  constructor(public payload: Location) {
+  }
 }
 
 export class ToggleLoading {

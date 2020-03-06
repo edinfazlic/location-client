@@ -21,10 +21,10 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { LocationContainerComponent } from './components/location-container/location-container.component';
+import { LocationDialogComponent } from './components/location-dialog/location-dialog.component';
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { MapComponent } from './components/map/map.component';
 import { PopupComponent } from './components/map/popup/popup.component';
-import { NewLocationComponent } from './components/new-location/new-location.component';
 import { LocationService } from './services/fetch/location.service';
 import { DialogService } from './services/logic/dialog.service';
 import { FilterState } from './state/filter.state';
@@ -36,7 +36,7 @@ import { MapState } from './state/map.state';
     AppComponent,
     LocationListComponent,
     FilterComponent,
-    NewLocationComponent,
+    LocationDialogComponent,
     MapComponent,
     PopupComponent,
     LocationContainerComponent,
@@ -73,7 +73,7 @@ import { MapState } from './state/map.state';
     DialogService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NewLocationComponent],
+  entryComponents: [LocationDialogComponent],
 })
 export class AppModule {
 }

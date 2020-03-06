@@ -5,8 +5,10 @@ import {
   DeleteLocation,
   FetchLocations,
   HighlightLocation,
+  OpenEditLocationDialog,
   OpenNewLocationDialog,
   ToggleLoading,
+  UpdateLocation,
 } from '../actions/location.action';
 import { LocationModel as Location } from '../models/location.model';
 import { LocationService } from '../services/fetch/location.service';
@@ -66,6 +68,19 @@ export class LocationState {
     ).subscribe();
   }
 
+  @Action(UpdateLocation)
+  edit(context: StateContext<LocationStateModel>, action: UpdateLocation): void {
+    this.store.dispatch(new ToggleLoading(true));
+    this.locationsService.update(action.payload).pipe(
+      tap(() => {
+        this.store.dispatch(new FetchLocations());
+      }),
+      tap(() => {
+        this.store.dispatch(new ToggleLoading(false));
+      }),
+    ).subscribe();
+  }
+
   @Action(DeleteLocation)
   delete(context: StateContext<LocationStateModel>, action: DeleteLocation): void {
     this.store.dispatch(new ToggleLoading(true));
@@ -106,6 +121,11 @@ export class LocationState {
   @Action(OpenNewLocationDialog)
   openNewLocationDialog(context: StateContext<LocationStateModel>, action: OpenNewLocationDialog): void {
       this.dialogService.openNewLocationDialog();
+  }
+
+  @Action(OpenEditLocationDialog)
+  openEditLocationDialog(context: StateContext<LocationStateModel>, action: OpenEditLocationDialog): void {
+      this.dialogService.openEditLocationDialog(action.payload);
   }
 
   @Action(ToggleLoading)

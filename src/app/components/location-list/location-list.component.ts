@@ -4,7 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { LocationModel as Location } from 'src/app/models/location.model';
 import { UpdateFilter } from '../../actions/filter.action';
-import { DeleteLocation, HighlightLocation } from '../../actions/location.action';
+import { DeleteLocation, HighlightLocation, OpenEditLocationDialog } from '../../actions/location.action';
 import { UpdateCenterCoordinate } from '../../actions/map.action';
 import { LocationState } from '../../state/location.state';
 import LocationCoordinate from '../../utils/location-coordinate.util';
@@ -54,5 +54,9 @@ export class LocationListComponent {
 
   clearRowHover(): void {
     this.onHoverRow(new Location());
+  }
+
+  updateLocation(row: Location): void {
+    this.store.dispatch(new OpenEditLocationDialog(row));
   }
 }
