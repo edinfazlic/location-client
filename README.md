@@ -34,7 +34,7 @@ Application showcases knowledge of:
   - General
     - REST calls
         - GET with parameters
-        - POST with body 
+        - POST and PUT with body 
         - DELETE with path variable
     - Data structures
         - Array for locations management, upon which JS array methods were used (map())

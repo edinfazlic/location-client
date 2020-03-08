@@ -26,7 +26,7 @@ export class LocationService {
   }
 
   public getAll(): Observable<Location[]> {
-    return this.http.get<Location[]>(this.locationUrl);
+    return this.http.get<Location[]>(`${this.locationUrl}/all`);
   }
 
   public get(id: string): Observable<Location> {
