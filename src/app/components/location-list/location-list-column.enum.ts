@@ -3,5 +3,5 @@ export enum LocationListColumn {
   LOCATION_NAME = 'locationName',
   LONGITUDE = 'lng',
   LATITUDE = 'lat',
-  NEW = 'new',
+  ACTION = 'action',
 }

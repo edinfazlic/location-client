@@ -21,7 +21,7 @@
         <td mat-cell *matCellDef="let row">{{row[column.LATITUDE]}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="{{column.NEW}}">
+      <ng-container matColumnDef="{{column.ACTION}}">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let row">
           <button mat-icon-button matTooltip="Go to location" (click)="goToLocation(row)">

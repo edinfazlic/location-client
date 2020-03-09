@@ -22,7 +22,7 @@ export class LocationListComponent {
   @Select(LocationState.getHighlightLocation) highlightedLocation$: Observable<Location>;
 
   column = LocationListColumn;
-  displayedColumns: string[] = [this.column.ID, this.column.LOCATION_NAME, this.column.LONGITUDE, this.column.LATITUDE, this.column.NEW];
+  displayedColumns: string[] = [this.column.ID, this.column.LOCATION_NAME, this.column.LONGITUDE, this.column.LATITUDE, this.column.ACTION];
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
