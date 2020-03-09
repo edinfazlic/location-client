@@ -1,7 +1,7 @@
-#Locations
+# Locations
 This is an application for real life locations (with coordinates) management. Visualisation is provided through interactive map. Whether searching for a specific location or locations within given radius, do it with ease.
 
-##Used
+## Used
 - Angular, version 8
 - NGXS, for state management
 - OpenLayers, for map displaying
@@ -9,7 +9,7 @@ This is an application for real life locations (with coordinates) management. Vi
 - Material design icons
 - GitHub, for review
 
-##Functionalities
+## Functionalities
 This is an application with a single page, but multiple panels: Table, Search, and Map. 
 - Table panel
   - Lists locations displaying their id, name, and coordinate
