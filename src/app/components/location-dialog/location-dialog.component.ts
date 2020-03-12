@@ -11,7 +11,7 @@ import { LocationModel as Location } from '../../models/location.model';
 })
 export class LocationDialogComponent {
 
-  private location: Location;
+  location: Location;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: LocationDialog,
