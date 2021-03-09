@@ -90,4 +90,5 @@ Application showcases knowledge of:
 
 ## Development server
 1. Have server api ([found here](https://github.com/edinfazlic/location-api)) running. 
-1. Run `ng serve` or `npm start` and navigate to `http://localhost:4200/`. 
+1. Run `ng serve` or `npm start`
+1. In your browser navigate to `http://localhost:4200/`. 
